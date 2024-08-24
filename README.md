@@ -1,50 +1,18 @@
-# React + TypeScript + Vite
+# Mortage Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Calculator for determining the total loan, interest, principal, monthly repayments and percentage composition of a mortage.
 
-Currently, two official plugins are available:
+Input:
+  - Loan Amount: Total cost of the property.
+  - Down Payment: Initial funds to secure the loan. Usually 10% - 20%.
+  - Interest Rate (%): Annual interest rate for the loan. <b>Recommend taking an aggregate.</b>
+  - Period (years): Term of the loan in years. 12 payments are made per year.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Output:
+  - Monthly Repaymments: Dollar amount to be paid per month to meet obligations.
+  - Total Principal: Amount borrowed from the bank. Loan amount minus down payment.
+  - Total Interest: Total compounding interest to be paid. Shorter periods incur less interest.
+  - Mortage: Total amount owed on the mortage. Total principal plus the total interest.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Donut Chart:
+  - Donut graph displaying the composition of the mortage. Provides graphical BI.
