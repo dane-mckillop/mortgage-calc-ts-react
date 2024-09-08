@@ -3,7 +3,7 @@ import { useState } from 'react';
 import RepaymentCalculator from '../components/RepaymentCalculator';
 import LoanChart from '../components/LoanChart';
 
-const LandingPage: React.FC = () => {
+const BuyProperty: React.FC = () => {
   const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
   const [totalPrincipal, setTotalPrincipal] = useState<number>(0);
   const [totalInterest, setTotalInterest] = useState<number>(0);
@@ -60,4 +60,4 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default BuyProperty;
