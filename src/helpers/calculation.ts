@@ -1,5 +1,8 @@
 // Calculates the total interest for a mortgage
-export function calculateInterest(principal: number, totalLoan: number): number {
+export function calculateInterest(
+    principal: number, 
+    totalLoan: number
+): number {
     const totalInterest = totalLoan - principal;
 
     console.log(totalInterest);
@@ -9,7 +12,10 @@ export function calculateInterest(principal: number, totalLoan: number): number 
 
 // Calculates the total amount for a loan
 // Requires the monthlyPayments to be known, see calculateMonthlyPayments
-export function calculateTotalLoan(years: number, monthlyPayment: number): number {
+export function calculateTotalLoan(
+    years: number, 
+    monthlyPayment: number
+): number {
     const paymentsPerYear = 12;
     const totalRepayments = paymentsPerYear * years;
 
@@ -18,7 +24,10 @@ export function calculateTotalLoan(years: number, monthlyPayment: number): numbe
 }
 
 // Calculates the principal for a mortgage
-export function calculatePrincipal(loanAmount: number, downPayment: number): number {
+export function calculatePrincipal(
+    loanAmount: number, 
+    downPayment: number
+): number {
     let principal = loanAmount - downPayment;
 
     // Check if principal is negative
@@ -28,7 +37,11 @@ export function calculatePrincipal(loanAmount: number, downPayment: number): num
 }
 
 // Calculates the monthly payments for a mortgage
-export function calculateMonthlyPayment(principal: number, years: number, interestRate: number): number {
+export function calculateMonthlyPayment(
+    principal: number, 
+    years: number, 
+    interestRate: number
+): number {
     const paymentsPerYear = 12;
     const totalRepayments = paymentsPerYear * years;
     const interestDecimal = interestRate / 100;

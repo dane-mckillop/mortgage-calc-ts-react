@@ -3,11 +3,24 @@ import { Box, Grid, TextField, Button, Typography } from '@mui/material';
 import { isValidInput } from '../helpers/validation';
 import * as c from '../helpers/calculation';
 
-const RepaymentCalculator = (props) => {
-  const [loanAmount, setLoanAmount] = useState('');         //Principal + DownPayment
-  const [interestRate, setInterestRate] = useState('');
-  const [years, setYears] = useState('');
-  const [downPayment, setDownPayment] = useState('');
+interface RepaymentCalculatorProps {
+  totalPrincipal: number;
+  changeTotalPrincipal: (value: number) => void;
+  monthlyPayment: number;
+  changeMonthlyPayment: (value:number) => void;
+  totalLoan: number;           //Principal + Interest
+  changeTotalLoan: (value: number) => void;
+  totalInterest: number;
+  changeTotalInterest: (value: number) => void;
+  downPayment: number;
+  changeDownPayment: (value: number) => void;
+}
+
+const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
+  const [loanAmount, setLoanAmount] = useState<number>(0);         //Principal + DownPayment
+  const [interestRate, setInterestRate] = useState<number>(0);
+  const [years, setYears] = useState<number>(0);
+  const [downPayment, setDownPayment] = useState<number>(props.downPayment);
   const totalPrincipal = props.totalPrincipal;
   const changeTotalPrincipal = props.changeTotalPrincipal;
   const monthlyPayment = props.monthlyPayment;
@@ -49,7 +62,7 @@ const RepaymentCalculator = (props) => {
             type="number"
             inputProps={{ min: 0}}
             value={loanAmount}
-            onChange={(e) => setLoanAmount(e.target.value)}
+            onChange={(e) => setLoanAmount(Number(e.target.value))}
             fullWidth
           />
         </Grid>
@@ -59,7 +72,7 @@ const RepaymentCalculator = (props) => {
             type="number"
             inputProps={{ min: 0}}
             value={downPayment}
-            onChange={(e) => setDownPayment(e.target.value)}
+            onChange={(e) => setDownPayment(Number(e.target.value))}
             fullWidth
           />
         </Grid>
@@ -69,7 +82,7 @@ const RepaymentCalculator = (props) => {
             type="number"
             inputProps={{ min: 0, max: 100}}
             value={interestRate}
-            onChange={(e) => setInterestRate(e.target.value)}
+            onChange={(e) => setInterestRate(Number(e.target.value))}
             fullWidth
           />
         </Grid>
@@ -79,7 +92,7 @@ const RepaymentCalculator = (props) => {
             type="number"
             inputProps={{ min: 0}}
             value={years}
-            onChange={(e) => setYears(e.target.value)}
+            onChange={(e) => setYears(Number(e.target.value))}
             fullWidth
           />
         </Grid>
