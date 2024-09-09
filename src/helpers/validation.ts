@@ -8,10 +8,6 @@ export function isValidInput (
     const interestRateValue = interestRate ? interestRate / 100 : 0;
 
     return !(
-        isNaN(loanAmount) ||
-        isNaN(interestRateValue) ||
-        isNaN(years) ||
-        isNaN(downPayment) ||
         loanAmount <= 0 ||
         interestRateValue < 0 ||
         years <= 0 ||

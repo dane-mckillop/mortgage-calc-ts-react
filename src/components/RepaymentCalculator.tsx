@@ -7,7 +7,7 @@ interface RepaymentCalculatorProps {
   totalPrincipal: number;
   changeTotalPrincipal: (value: number) => void;
   monthlyPayment: number;
-  changeMonthlyPayment: (value:number) => void;
+  changeMonthlyPayment: (value: number) => void;
   totalLoan: number;           //Principal + Interest
   changeTotalLoan: (value: number) => void;
   totalInterest: number;
@@ -16,11 +16,15 @@ interface RepaymentCalculatorProps {
   changeDownPayment: (value: number) => void;
 }
 
-const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
-  const [loanAmount, setLoanAmount] = useState<number>(0);         //Principal + DownPayment
+const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
+  const [loanAmount, setLoanAmount] = useState<number>(0);              //Principal + DownPayment
+  const [loanAmountString, setLoanAmountString] = useState<string>('');
   const [interestRate, setInterestRate] = useState<number>(0);
+  const [interestRateString, setInterestRateString] = useState<string>('');
   const [years, setYears] = useState<number>(0);
+  const [yearsString, setYearsString] = useState<string>('');
   const [downPayment, setDownPayment] = useState<number>(props.downPayment);
+  const [downPaymentString, setDownPaymentString] = useState<string>('');
   const totalPrincipal = props.totalPrincipal;
   const changeTotalPrincipal = props.changeTotalPrincipal;
   const monthlyPayment = props.monthlyPayment;
@@ -33,7 +37,7 @@ const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
 
   const handleCalculateRepayment = () => {
     if (isValidInput(loanAmount, interestRate, years, downPayment)) {
-      
+
       const localTotalPrincipal = c.calculatePrincipal(loanAmount, downPayment);
       const localMonthlyPayment = c.calculateMonthlyPayment(localTotalPrincipal, years, interestRate);
       const localTotalLoan = c.calculateTotalLoan(years, localMonthlyPayment);
@@ -53,16 +57,52 @@ const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
     }
   };
 
+  const handleNumericInput = (
+    input: string,
+    setNumber: (value: number) => void,
+    setString: (value: string) => void
+  ) => {
+    const temp = parseFloat(input);
+    const lastChar = input.charAt(input.length - 1);
+
+    // Empty field
+    if (isNaN(temp)) {
+      if (input === '-') {
+        /* NEGATIVE INPUT DISALLOWED
+        setNumber(0);
+        setString(input);
+        */
+      } else {
+        setNumber(0);
+        setString('');
+      }
+    }
+    // Valid input
+    else {
+      // Trailing zero or decimal values
+      if (lastChar === '.' || lastChar === '0') {
+        setNumber(temp);
+        setString(input);
+      }
+      // Parse numbers as normal
+      else {
+        setNumber(temp);
+        setString(String(temp));
+      }
+    }
+  };
+
   return (
     <Box sx={{ py: 0, px: 4, maxWidth: '1000px' }}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
             label="Loan Amount"
-            type="number"
-            inputProps={{ min: 0}}
-            value={loanAmount}
-            onChange={(e) => setLoanAmount(Number(e.target.value))}
+            type="string"
+            value={loanAmountString}
+            onChange={(e) => {
+              handleNumericInput(e.target.value, setLoanAmount, setLoanAmountString)
+            }}
             fullWidth
           />
         </Grid>
@@ -70,9 +110,10 @@ const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
           <TextField
             label="Down Payment"
             type="number"
-            inputProps={{ min: 0}}
-            value={downPayment}
-            onChange={(e) => setDownPayment(Number(e.target.value))}
+            value={downPaymentString}
+            onChange={(e) => 
+              handleNumericInput(e.target.value, setDownPayment, setDownPaymentString)
+            }
             fullWidth
           />
         </Grid>
@@ -80,9 +121,10 @@ const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
           <TextField
             label="Interest Rate (%)"
             type="number"
-            inputProps={{ min: 0, max: 100}}
-            value={interestRate}
-            onChange={(e) => setInterestRate(Number(e.target.value))}
+            value={interestRateString}
+            onChange={(e) => 
+              handleNumericInput(e.target.value, setInterestRate, setInterestRateString)
+            }
             fullWidth
           />
         </Grid>
@@ -90,27 +132,28 @@ const RepaymentCalculator:React.FC<RepaymentCalculatorProps> = (props) => {
           <TextField
             label="Period (years)"
             type="number"
-            inputProps={{ min: 0}}
-            value={years}
-            onChange={(e) => setYears(Number(e.target.value))}
+            value={yearsString}
+            onChange={(e) => 
+              handleNumericInput(e.target.value, setYears, setYearsString)
+            }
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center', m: '12px', width: '100%'}}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
           <Button variant="contained" color="primary" onClick={handleCalculateRepayment}>
             Calculate
           </Button>
         </Grid>
-        <Box sx={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
           <Typography variant="body1">
             Monthly Repayments: ${monthlyPayment.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </Typography>
+          </Typography>
           <Typography variant="body1">
-            Total Principal: ${totalPrincipal.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2})}
-            </Typography>
+            Total Principal: ${totalPrincipal.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </Typography>
           <Typography variant="body1">
-            Total Interest: ${totalInterest.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2})}
-            </Typography>
+            Total Interest: ${totalInterest.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </Typography>
         </Box>
       </Grid>
     </Box>
