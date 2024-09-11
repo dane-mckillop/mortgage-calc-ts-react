@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid, TextField, Button, Typography } from '@mui/material';
+import { Box, Grid, TextField, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import { isValidInput } from '../helpers/validation';
 import * as c from '../helpers/calculation';
 
@@ -25,6 +25,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const [yearsString, setYearsString] = useState<string>('');
   const [downPayment, setDownPayment] = useState<number>(props.downPayment);
   const [downPaymentString, setDownPaymentString] = useState<string>('');
+  const [feesBool, setFeesBool] = useState<boolean>(false);
   const totalPrincipal = props.totalPrincipal;
   const changeTotalPrincipal = props.changeTotalPrincipal;
   const monthlyPayment = props.monthlyPayment;
@@ -57,6 +58,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
     }
   };
 
+  //Handles conversion from user input string, to a numeric for calculation.
   const handleNumericInput = (
     input: string,
     setNumber: (value: number) => void,
@@ -143,7 +145,14 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
           <Button variant="contained" color="primary" onClick={handleCalculateRepayment}>
             Calculate
           </Button>
+          <FormControlLabel 
+            control={<Checkbox onChange={(e) => setFeesBool(e.target.checked)} />} 
+            label="Fees" style={{marginLeft: '4px'}}
+            />
         </Grid>
+        {feesBool && 
+          (<p>Placeholder Fees Section</p>)
+        }
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
           <Typography variant="body1">
             Monthly Repayments: ${monthlyPayment.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
