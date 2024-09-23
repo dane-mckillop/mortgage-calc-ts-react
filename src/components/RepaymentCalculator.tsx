@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Box, Grid, TextField, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import { isValidInput } from '../helpers/validation';
 import * as c from '../helpers/calculation';
+import DynamicFees from './DynamicFees';
+import Fees from '../interfaces/Fees.ts';
 
 interface RepaymentCalculatorProps {
   totalPrincipal: number;
@@ -26,6 +28,9 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const [downPayment, setDownPayment] = useState<number>(props.downPayment);
   const [downPaymentString, setDownPaymentString] = useState<string>('');
   const [feesBool, setFeesBool] = useState<boolean>(false);
+  const [fields, setFields] = useState<Fees[]>([{ id: 0, fee: '' }]);
+  const [nextId, setNextId] = useState<number>(1);
+  const [feesTotal, setFeesTotal] = useState<number>(0);
   const totalPrincipal = props.totalPrincipal;
   const changeTotalPrincipal = props.changeTotalPrincipal;
   const monthlyPayment = props.monthlyPayment;
@@ -35,6 +40,9 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const totalInterest = props.totalInterest;
   const changeTotalInterest = props.changeTotalInterest;
   const changeDownPayment = props.changeDownPayment;
+  const changeFields = (values:Fees[]) => { setFields(values) }
+  const changeNextId = (value:number) => { setNextId(value) }
+  const changeFeesTotal = (value:number) => {setFeesTotal(value)};
 
   const handleCalculateRepayment = () => {
     if (isValidInput(loanAmount, interestRate, years, downPayment)) {
@@ -113,7 +121,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
             label="Down Payment"
             type="number"
             value={downPaymentString}
-            onChange={(e) => 
+            onChange={(e) =>
               handleNumericInput(e.target.value, setDownPayment, setDownPaymentString)
             }
             fullWidth
@@ -124,7 +132,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
             label="Interest Rate (%)"
             type="number"
             value={interestRateString}
-            onChange={(e) => 
+            onChange={(e) =>
               handleNumericInput(e.target.value, setInterestRate, setInterestRateString)
             }
             fullWidth
@@ -135,7 +143,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
             label="Period (years)"
             type="number"
             value={yearsString}
-            onChange={(e) => 
+            onChange={(e) =>
               handleNumericInput(e.target.value, setYears, setYearsString)
             }
             fullWidth
@@ -145,14 +153,20 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
           <Button variant="contained" color="primary" onClick={handleCalculateRepayment}>
             Calculate
           </Button>
-          <FormControlLabel 
-            control={<Checkbox onChange={(e) => setFeesBool(e.target.checked)} />} 
-            label="Fees" style={{marginLeft: '4px'}}
-            />
+          <FormControlLabel
+            control={<Checkbox onChange={(e) => setFeesBool(e.target.checked)} />}
+            label="Fees" style={{ marginLeft: '4px' }}
+          />
         </Grid>
-        {feesBool && 
-          (<p>Placeholder Fees Section</p>)
-        }
+        {feesBool && (
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
+            <DynamicFees 
+              fields={fields} changeFields={changeFields}
+              nextId={nextId} changeNextId={changeNextId}
+              feesTotal={feesTotal} changeFeesTotal={changeFeesTotal} 
+            />
+          </Grid>
+        )}
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
           <Typography variant="body1">
             Monthly Repayments: ${monthlyPayment.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
