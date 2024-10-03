@@ -5,9 +5,13 @@ interface LoanChartProps {
   totalPrincipal: number;
   totalInterest: number;
   totalLoan: number;
+  feesTotal: number;
+  feesBool: boolean;
 }
 
-const LoanChart: React.FC<LoanChartProps> = ({ totalPrincipal, totalInterest, totalLoan }) => {
+const LoanChart: React.FC<LoanChartProps> = (
+  { totalPrincipal, totalInterest, totalLoan, feesTotal, feesBool }
+) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,6 +52,7 @@ const LoanChart: React.FC<LoanChartProps> = ({ totalPrincipal, totalInterest, to
           data: [
             { name: 'Principal', y: principalPercentage },
             { name: 'Interest', y: interestPercentage },
+            //...(feesBool ? [{ name: 'Fees', y: feesTotal }] : []),
           ],
         } as Highcharts.SeriesPieOptions,
       ],

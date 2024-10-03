@@ -1,5 +1,5 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import Fee from "../interfaces/Fees";
 
 
@@ -39,6 +39,12 @@ const DynamicFees: React.FC<DynamicFeesProps> = (props) => {
         });
         changeFields(newFields);
     };
+
+    //Updates the totalFees when a fee field is modified.
+    useEffect(() => {
+        const sum = fields.reduce((acc, field) => acc + (parseFloat(field.fee) || 0), 0);
+        changeFeesTotal(sum);
+    }, [fields]);
 
     return (
         <Grid container spacing={2}>

@@ -16,6 +16,10 @@ interface RepaymentCalculatorProps {
   changeTotalInterest: (value: number) => void;
   downPayment: number;
   changeDownPayment: (value: number) => void;
+  feesTotal: number;
+  changeFeesTotal: (value: number) => void;
+  feesBool: boolean;
+  changeFeesBool: (value: boolean) => void;
 }
 
 const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
@@ -27,10 +31,8 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const [yearsString, setYearsString] = useState<string>('');
   const [downPayment, setDownPayment] = useState<number>(props.downPayment);
   const [downPaymentString, setDownPaymentString] = useState<string>('');
-  const [feesBool, setFeesBool] = useState<boolean>(false);
   const [fields, setFields] = useState<Fees[]>([{ id: 0, fee: '' }]);
   const [nextId, setNextId] = useState<number>(1);
-  const [feesTotal, setFeesTotal] = useState<number>(0);
   const totalPrincipal = props.totalPrincipal;
   const changeTotalPrincipal = props.changeTotalPrincipal;
   const monthlyPayment = props.monthlyPayment;
@@ -39,10 +41,13 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const changeTotalLoan = props.changeTotalLoan;
   const totalInterest = props.totalInterest;
   const changeTotalInterest = props.changeTotalInterest;
+  const feesTotal = props.feesTotal;
+  const changeFeesTotal = props.changeFeesTotal;
+  const feesBool = props.feesBool;
+  const changeFeesBool = props.changeFeesBool;
   const changeDownPayment = props.changeDownPayment;
   const changeFields = (values:Fees[]) => { setFields(values) }
   const changeNextId = (value:number) => { setNextId(value) }
-  const changeFeesTotal = (value:number) => {setFeesTotal(value)};
 
   const handleCalculateRepayment = () => {
     if (isValidInput(loanAmount, interestRate, years, downPayment)) {
@@ -149,15 +154,6 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
-          <Button variant="contained" color="primary" onClick={handleCalculateRepayment}>
-            Calculate
-          </Button>
-          <FormControlLabel
-            control={<Checkbox onChange={(e) => setFeesBool(e.target.checked)} />}
-            label="Fees" style={{ marginLeft: '4px' }}
-          />
-        </Grid>
         {feesBool && (
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
             <DynamicFees 
@@ -167,6 +163,15 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
             />
           </Grid>
         )}
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
+          <Button variant="contained" color="primary" onClick={handleCalculateRepayment}>
+            Calculate
+          </Button>
+          <FormControlLabel
+            control={<Checkbox onChange={(e) => changeFeesBool(e.target.checked)} />}
+            label="Fees" style={{ marginLeft: '4px' }}
+          />
+        </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
           <Typography variant="body1">
             Monthly Repayments: ${monthlyPayment.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
