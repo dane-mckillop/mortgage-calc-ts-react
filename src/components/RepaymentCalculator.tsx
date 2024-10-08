@@ -37,7 +37,6 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const changeTotalPrincipal = props.changeTotalPrincipal;
   const monthlyPayment = props.monthlyPayment;
   const changeMonthlyPayment = props.changeMonthlyPayment;
-  const totalLoan = props.totalLoan;                        //Principal + Interest
   const changeTotalLoan = props.changeTotalLoan;
   const totalInterest = props.totalInterest;
   const changeTotalInterest = props.changeTotalInterest;

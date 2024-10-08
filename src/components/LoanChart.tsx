@@ -15,9 +15,13 @@ const LoanChart: React.FC<LoanChartProps> = (
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const totalAmount = totalPrincipal + totalInterest;
-    const principalPercentage = totalPrincipal > 0 ? (totalPrincipal / totalAmount) * 100 : 0;
-    const interestPercentage = totalInterest > 0 ? (totalInterest / totalAmount) * 100 : 0;
+    const totalAmount = feesBool ? 
+      totalPrincipal + totalInterest:
+      totalPrincipal + totalInterest + feesTotal;
+    const principalPercentage = totalPrincipal > 0 ? 
+      (totalPrincipal / totalAmount) * 100 : 0;
+    const interestPercentage = totalInterest > 0 ?
+      (totalInterest / totalAmount) * 100 : 0;
 
     const options: Options = {
       colors: ['#01BAF2', '#71BF45', '#FAA74B', '#B37CD2'],
