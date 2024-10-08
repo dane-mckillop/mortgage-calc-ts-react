@@ -16,10 +16,12 @@ interface RepaymentCalculatorProps {
   changeTotalInterest: (value: number) => void;
   downPayment: number;
   changeDownPayment: (value: number) => void;
-  feesTotal: number;
-  changeFeesTotal: (value: number) => void;
+  totalFees: number;
+  changeTotalFees: (value: number) => void;
   feesBool: boolean;
   changeFeesBool: (value: boolean) => void;
+  updateChart: boolean;
+  changeUpdateChart: (value: boolean) => void;
 }
 
 const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
@@ -40,10 +42,12 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
   const changeTotalLoan = props.changeTotalLoan;
   const totalInterest = props.totalInterest;
   const changeTotalInterest = props.changeTotalInterest;
-  const feesTotal = props.feesTotal;
-  const changeFeesTotal = props.changeFeesTotal;
+  const totalFees = props.totalFees;
+  const changeFeesTotal = props.changeTotalFees;
   const feesBool = props.feesBool;
   const changeFeesBool = props.changeFeesBool;
+  const updateChart = props.updateChart;
+  const changeUpdateChart = props.changeUpdateChart;
   const changeDownPayment = props.changeDownPayment;
   const changeFields = (values:Fees[]) => { setFields(values) }
   const changeNextId = (value:number) => { setNextId(value) }
@@ -68,6 +72,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
       changeTotalInterest(0);
       changeDownPayment(0);
     }
+    changeUpdateChart(!updateChart);
   };
 
   //Handles conversion from user input string, to a numeric for calculation.
@@ -158,7 +163,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
             <DynamicFees 
               fields={fields} changeFields={changeFields}
               nextId={nextId} changeNextId={changeNextId}
-              feesTotal={feesTotal} changeFeesTotal={changeFeesTotal} 
+              changeFeesTotal={changeFeesTotal} 
             />
           </Grid>
         )}
@@ -172,15 +177,18 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
           />
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
-          <Typography variant="body1">
+          <Typography variant="body1" style={{ marginRight: '5px' }}>
             Monthly Repayments: ${monthlyPayment.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" style={{ marginRight: '5px' }}>
             Total Principal: ${totalPrincipal.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" style={{ marginRight: '5px' }}>
             Total Interest: ${totalInterest.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Typography>
+          {feesBool && (<Typography variant="body1" style={{ marginRight: '5px' }}>
+            Upfront Fees: ${totalFees.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </Typography>)}
         </Box>
       </Grid>
     </Box>

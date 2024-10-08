@@ -5,8 +5,6 @@ export function calculateInterest(
 ): number {
     const totalInterest = totalLoan - principal;
 
-    console.log(totalInterest);
-
     return totalInterest;
 }
 
@@ -19,7 +17,6 @@ export function calculateTotalLoan(
     const paymentsPerYear = 12;
     const totalRepayments = paymentsPerYear * years;
 
-    console.log(totalRepayments * monthlyPayment);
     return totalRepayments * monthlyPayment;
 }
 
@@ -42,7 +39,7 @@ export function calculateMonthlyPayment(
     years: number, 
     interestRate: number
 ): number {
-    const paymentsPerYear = 12;
+    const paymentsPerYear = 12;     //Can become variable field.
     const totalRepayments = paymentsPerYear * years;
     const interestDecimal = interestRate / 100;
     const periodicInterest = interestDecimal / paymentsPerYear;

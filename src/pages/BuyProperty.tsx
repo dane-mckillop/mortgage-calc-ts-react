@@ -9,8 +9,9 @@ const BuyProperty: React.FC = () => {
   const [totalInterest, setTotalInterest] = useState<number>(0);
   const [totalLoan, setTotalLoan] = useState<number>(0);
   const [downPayment, setDownPayment] = useState<number>(0);
-  const [feesTotal, setFeesTotal] = useState<number>(0);
+  const [totalFees, setTotalFees] = useState<number>(0);
   const [feesBool, setFeesBool] = useState<boolean>(false);
+  const [updateChart, setUpdateChart] = useState<boolean>(false);
   const changeMonthlyPayment = (value: number) => {
     setMonthlyPayment(value);
   };
@@ -26,11 +27,14 @@ const BuyProperty: React.FC = () => {
   const changeDownPayment = (value: number) => {
     setDownPayment(value);
   };
-  const changeFeesTotal = (value:number) => {
-    setFeesTotal(value)
+  const changeTotalFees = (value:number) => {
+    setTotalFees(value)
   };
   const changeFeesBool = (value:boolean) => {
     setFeesBool(value);
+  }
+  const changeUpdateChart = (value:boolean) => {
+    setUpdateChart(value);
   }
 
   return (
@@ -52,17 +56,20 @@ const BuyProperty: React.FC = () => {
           changeTotalInterest={changeTotalInterest}
           downPayment={downPayment}
           changeDownPayment={changeDownPayment}
-          feesTotal={feesTotal}
-          changeFeesTotal={changeFeesTotal}
+          totalFees={totalFees}
+          changeTotalFees={changeTotalFees}
           feesBool={feesBool}
           changeFeesBool={changeFeesBool}
+          updateChart={updateChart}
+          changeUpdateChart={changeUpdateChart}
         />
         <LoanChart
           totalPrincipal={totalPrincipal}
           totalInterest={totalInterest}
           totalLoan={totalLoan}
-          feesTotal={feesTotal}
+          totalFees={totalFees}
           feesBool={feesBool}
+          updateChart={updateChart}
         />
       </Stack>
     </div>

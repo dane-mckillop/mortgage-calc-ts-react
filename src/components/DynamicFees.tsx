@@ -8,14 +8,12 @@ interface DynamicFeesProps {
     changeFields: (value: Fee[]) => void;
     nextId: number;
     changeNextId: (value: number) => void;
-    feesTotal: number;
     changeFeesTotal: (value: number) => void;
 }
 
 const DynamicFees: React.FC<DynamicFeesProps> = (props) => {
     const fields: Fee[] = props.fields;
     const nextId: number = props.nextId;
-    const feesTotal: number = props.feesTotal;
     const changeFields: (value: Fee[]) => void = props.changeFields;
     const changeNextId: (value: number) => void = props.changeNextId;
     const changeFeesTotal: (value: number) => void = props.changeFeesTotal;
