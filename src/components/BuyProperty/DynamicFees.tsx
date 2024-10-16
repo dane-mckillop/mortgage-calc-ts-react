@@ -1,6 +1,6 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { ChangeEvent, useEffect } from "react";
-import Fee from "../interfaces/Fees";
+import Fee from "../../interfaces/IFees";
 
 
 interface DynamicFeesProps {

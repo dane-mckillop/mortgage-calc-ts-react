@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Grid, TextField, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
-import { isValidInput } from '../helpers/validation';
-import * as c from '../helpers/calculation';
-import DynamicFees from './DynamicFees';
-import Fees from '../interfaces/Fees.ts';
+import { isValidInput } from '../../helpers/validation';
+import * as c from '../../helpers/calculation';
+import DynamicFees from '../BuyProperty/DynamicFees.tsx';
+import Fees from '../../interfaces/IFees.ts';
 
 interface RepaymentCalculatorProps {
   totalPrincipal: number;

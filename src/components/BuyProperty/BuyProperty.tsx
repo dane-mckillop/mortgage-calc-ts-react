@@ -1,41 +1,41 @@
 import { Stack, Typography } from '@mui/material';
+import RepaymentCalculator from './RepaymentCalculator';
+import LoanChart from './LoanChart';
 import { useState } from 'react';
-import RepaymentCalculator from '../components/RepaymentCalculator';
-import LoanChart from '../components/LoanChart';
 
 const BuyProperty: React.FC = () => {
-  const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
-  const [totalPrincipal, setTotalPrincipal] = useState<number>(0);
-  const [totalInterest, setTotalInterest] = useState<number>(0);
-  const [totalLoan, setTotalLoan] = useState<number>(0);
-  const [downPayment, setDownPayment] = useState<number>(0);
-  const [totalFees, setTotalFees] = useState<number>(0);
-  const [feesBool, setFeesBool] = useState<boolean>(false);
-  const [updateChart, setUpdateChart] = useState<boolean>(false);
-  const changeMonthlyPayment = (value: number) => {
-    setMonthlyPayment(value);
-  };
-  const changeTotalPrincipal = (value: number) => {
-    setTotalPrincipal(value);
-  };
-  const changeTotalInterest = (value: number) => {
-    setTotalInterest(value);
-  };
-  const changeTotalLoan = (value: number) => {
-    setTotalLoan(value);
-  };
-  const changeDownPayment = (value: number) => {
-    setDownPayment(value);
-  };
-  const changeTotalFees = (value:number) => {
-    setTotalFees(value)
-  };
-  const changeFeesBool = (value:boolean) => {
-    setFeesBool(value);
-  }
-  const changeUpdateChart = (value:boolean) => {
-    setUpdateChart(value);
-  }
+    const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
+    const [totalPrincipal, setTotalPrincipal] = useState<number>(0);
+    const [totalInterest, setTotalInterest] = useState<number>(0);
+    const [totalLoan, setTotalLoan] = useState<number>(0);
+    const [downPayment, setDownPayment] = useState<number>(0);
+    const [totalFees, setTotalFees] = useState<number>(0);
+    const [feesBool, setFeesBool] = useState<boolean>(false);
+    const [updateChart, setUpdateChart] = useState<boolean>(false);
+    const changeMonthlyPayment = (value: number) => {
+        setMonthlyPayment(value);
+    };
+    const changeTotalPrincipal = (value: number) => {
+        setTotalPrincipal(value);
+    };
+    const changeTotalInterest = (value: number) => {
+        setTotalInterest(value);
+    };
+    const changeTotalLoan = (value: number) => {
+        setTotalLoan(value);
+    };
+    const changeDownPayment = (value: number) => {
+        setDownPayment(value);
+    };
+    const changeTotalFees = (value: number) => {
+        setTotalFees(value)
+    };
+    const changeFeesBool = (value: boolean) => {
+        setFeesBool(value);
+    }
+    const changeUpdateChart = (value: boolean) => {
+        setUpdateChart(value);
+    }
 
   return (
     <div>
