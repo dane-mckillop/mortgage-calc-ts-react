@@ -1,4 +1,4 @@
-import { Stack, Tab, Tabs } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import BuyProperty from '../components/BuyProperty/BuyProperty';
 import TrancheCalculator from '../components/TrancheCalculator/TrancheCalculator';
@@ -17,7 +17,8 @@ const BuyCalculators: React.FC = () => {
             </Tabs>
             {tab === 1 &&
                 <BuyProperty />}
-            {tab === 2 && <TrancheCalculator />}
+            {tab === 2 && 
+                <TrancheCalculator />}
         </div>
     );
 };
