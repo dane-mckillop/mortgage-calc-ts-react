@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Grid, TextField, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
-import { isValidInput } from '../../helpers/validation';
+import { handleNumericInput, isValidInput } from '../../helpers/validation';
 import * as c from '../../helpers/calculation';
 import DynamicFees from '../BuyProperty/DynamicFees.tsx';
 import Fees from '../../interfaces/IFees.ts';
@@ -73,42 +73,6 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
       changeDownPayment(0);
     }
     changeUpdateChart(!updateChart);
-  };
-
-  //Handles conversion from user input string, to a numeric for calculation.
-  const handleNumericInput = (
-    input: string,
-    setNumber: (value: number) => void,
-    setString: (value: string) => void
-  ) => {
-    const temp = parseFloat(input);
-    const lastChar = input.charAt(input.length - 1);
-
-    // Empty field
-    if (isNaN(temp)) {
-      if (input === '-') {
-        /* NEGATIVE INPUT DISALLOWED
-        setNumber(0);
-        setString(input);
-        */
-      } else {
-        setNumber(0);
-        setString('');
-      }
-    }
-    // Valid input
-    else {
-      // Trailing zero or decimal values
-      if (lastChar === '.' || lastChar === '0') {
-        setNumber(temp);
-        setString(input);
-      }
-      // Parse numbers as normal
-      else {
-        setNumber(temp);
-        setString(String(temp));
-      }
-    }
   };
 
   return (
