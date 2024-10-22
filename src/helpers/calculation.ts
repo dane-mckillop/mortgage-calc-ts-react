@@ -1,3 +1,7 @@
+//////////////////
+// Buy Property //
+//////////////////
+
 // Calculates the total interest for a mortgage
 export function calculateInterest(
     principal: number, 
@@ -48,4 +52,24 @@ export function calculateMonthlyPayment(
     const discountFactor = 1 - Math.pow(1 + periodicInterest, -totalRepayments);
 
     return portionOfInterest / discountFactor;
+}
+
+
+///////////////////
+// Sell Property //
+///////////////////
+
+//Calculates the capital gains (or loss) for a property
+export function calculateCapitalGains(
+    //placeholder parameter
+): number {
+    return 0;
+}
+
+//Calculate capital gains tax. Used in conjunction with calculateCapitalGains
+//Result will vary greatly based on marginal tax threshold.
+export function calculateCapGainsTax (
+    //placeholder parameter
+): number {
+    return 0;
 }
