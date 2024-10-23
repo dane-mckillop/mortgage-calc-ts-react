@@ -60,10 +60,36 @@ export function calculateMonthlyPayment(
 ///////////////////
 
 //Calculates the capital gains (or loss) for a property
+//Expenses usually include:
+// • Stamp Duty
+// • Conveyancing & Building Inspection Fees
+// • Loan Origination Fees (mortgage-related expenses)
+// • Valuation Fees
+// • Agent Commission
+// • Advertising costs
+// • Renovation costs
+
+//Overloads
 export function calculateCapitalGains(
-    //placeholder parameter
+    salePrice: number, 
+    basePrice: number
+): number;
+export function calculateCapitalGains(
+    salePrice: number, 
+    basePrice: number,
+    expenses: number
+): number;
+//Implementation
+export function calculateCapitalGains(
+    salePrice: number,
+    basePrice: number,
+    expenses?: number
 ): number {
-    return 0;
+    if (expenses) {
+        return salePrice - (basePrice + expenses);
+    } else {
+        return salePrice - basePrice;
+    }
 }
 
 //Calculate capital gains tax. Used in conjunction with calculateCapitalGains
