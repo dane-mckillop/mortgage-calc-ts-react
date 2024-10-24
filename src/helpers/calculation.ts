@@ -69,7 +69,7 @@ export function calculateMonthlyPayment(
 // • Advertising costs
 // • Renovation costs
 
-//Overloads
+//Overloads, not used but for practice
 export function calculateCapitalGains(
     salePrice: number, 
     basePrice: number
@@ -94,8 +94,22 @@ export function calculateCapitalGains(
 
 //Calculate capital gains tax. Used in conjunction with calculateCapitalGains
 //Result will vary greatly based on marginal tax threshold.
+//Marginal Tax - Australian Income threshold rates
+//$18,201 or less       0%
+//$18,201 – $45,000     19%
+//$45,001 – $120,000    32.5%
+//$120,001 – $180,000	37%
+//$180,001 and over	    45%
 export function calculateCapGainsTax (
-    //placeholder parameter
+    taxableIncome: number,      //Simplified. Requires revisement for multiple properties and complex earning statement.
+    propertyBaseValue: number,  //How much the property cost  
+    propertySaleValue: number,  //How much you sold the property
+    propertyExpenses: number,   //Any tax-deductable property expenses
+    twelveMonthsHeld: boolean,  //Australian resident holding asset more than 12 months
 ): number {
-    return 0;
+    let capGainsTax: number = 0;
+    let capGains: number = calculateCapitalGains(propertyBaseValue, propertySaleValue, propertyExpenses);
+    //let taxRate
+
+    return capGainsTax;
 }
