@@ -108,28 +108,26 @@ export function calculateCapGainsTax (
     propertyExpenses: number,   //Any tax-deductable property expenses
     twelveMonthsHeld: boolean,  //Australian resident holding asset more than 12 months
 ): number {
-    let capGains: number = calculateCapitalGains(propertyBaseValue, propertySaleValue, propertyExpenses);
+    let capGains: number = calculateCapitalGains(propertySaleValue, propertyBaseValue, propertyExpenses);
     let taxRate: number;
 
     //If an Australian has held the asset for 12 months or more,
-    //They only have to pay tax on half.
-    taxableIncome = twelveMonthsHeld ?
-        taxableIncome + (capGains * 0.5)
-        :
-        taxableIncome + capGains;
+    //They only have to pay half the capital gains tax on that asset.
+    capGains = twelveMonthsHeld ? capGains * 0.5 : capGains;
+    taxableIncome = taxableIncome + capGains;
 
     //Set the tax bracket.Only concerned with CGT on property, not overall tax.
     switch (true) {
         case taxableIncome <= 18200:
             taxRate = 0;
             break;
-        case taxableIncome < 45000:
+        case taxableIncome <= 45000:
             taxRate = 0.16;
             break;
-        case taxableIncome < 135000:
+        case taxableIncome <= 135000:
             taxRate = 0.30;
             break;
-        case taxableIncome < 190000:
+        case taxableIncome <= 190000:
             taxRate = 0.37;
             break;
         default:
@@ -141,6 +139,7 @@ export function calculateCapGainsTax (
     if (taxRate <= 0) {
         return 0;
     } else {
+        console.log(capGains)
         return capGains * taxRate;
     }
 }
