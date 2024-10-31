@@ -4,36 +4,43 @@ import { handleNumericInput } from '../helpers/validation';
 
 const SellProperty: React.FC = () => {
     const [saleAmount, setSaleAmount] = useState<number>(0);
-    const [saleAmountString, setSaleAmountString] = useState<string>();
+    const [saleAmountString, setSaleAmountString] = useState<string>("");
     const [outstanding, setOutstanding] = useState<number>(0);
-    const [outstandingString, setOutstandingString] = useState<string>();
+    const [outstandingString, setOutstandingString] = useState<string>("");
     const [stampDuty, setStampDuty] = useState<number>(0);
-    const [stampDutyString, setStampDutyString] = useState<string>();
+    const [stampDutyString, setStampDutyString] = useState<string>("");
     const [commissionFlat, setCommissionFlat] = useState<number>(0);
-    const [commissionFlatString, setCommissionFlatString] = useState<string>();
+    const [commissionFlatString, setCommissionFlatString] = useState<string>("");
     const [netProfit, setNetProfit] = useState<number>(0);
     const [grossProfit, setGrossProfit] = useState<number>(0);
     const [capGainsTax, setCapGainsTax] = useState<number>(0);
     const changeSaleAmount = (value: number) => {
         setSaleAmount(value);
+        console.log(value);
     }
     const changeOutstanding = (value: number) => {
         setOutstanding(value);
+        console.log(value);
     }
     const changeStampDuty = (value: number) => {
         setStampDuty(value);
+        console.log(value);
     }
     const changeCommissionFlat = (value: number) => {
         setCommissionFlat(value);
+        console.log(value);
     }
     const changeNetProfit = (value: number) => {
         setNetProfit(value);
+        console.log(value);
     }
     const changeGrossProfit = (value: number) => {
         setGrossProfit(value);
+        console.log(value);
     }
     const changeCapGainsTax = (value: number) => {
         setCapGainsTax(value);
+        console.log(value);
     }
 
     return (
@@ -72,7 +79,7 @@ const SellProperty: React.FC = () => {
                             <Grid item xs={6}>
                                 <TextField
                                     label="Stamp Duty"
-                                    type="number"
+                                    type="string"
                                     value={stampDutyString}
                                     onChange={(e) =>
                                         handleNumericInput(e.target.value, setStampDuty, setStampDutyString)
@@ -83,7 +90,7 @@ const SellProperty: React.FC = () => {
                             <Grid item xs={6}>
                                 <TextField
                                     label="Commission (Flat)"
-                                    type="number"
+                                    type="string"
                                     value={commissionFlatString}
                                     onChange={(e) =>
                                         handleNumericInput(e.target.value, setCommissionFlat, setCommissionFlatString)

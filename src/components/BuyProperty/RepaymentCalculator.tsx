@@ -92,7 +92,7 @@ const RepaymentCalculator: React.FC<RepaymentCalculatorProps> = (props) => {
         <Grid item xs={6}>
           <TextField
             label="Down Payment"
-            type="number"
+            type="string"
             value={downPaymentString}
             onChange={(e) =>
               handleNumericInput(e.target.value, setDownPayment, setDownPaymentString)
