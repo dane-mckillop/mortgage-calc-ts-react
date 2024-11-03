@@ -1,12 +1,17 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { handleNumericInput } from '../helpers/validation';
+import { calculateCapGainsTax } from '../helpers/calculation';
 
 const SellProperty: React.FC = () => {
+    const [income, setIncome] = useState<number>(0);
+    const [incomeString, setIncomeString] = useState<string>("");
     const [saleAmount, setSaleAmount] = useState<number>(0);
     const [saleAmountString, setSaleAmountString] = useState<string>("");
-    const [outstanding, setOutstanding] = useState<number>(0);
-    const [outstandingString, setOutstandingString] = useState<string>("");
+    const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
+    const [purchaseAmountString, setPurchaseAmountString] = useState<string>("");
+    const [conveyancing, setConveyancing] = useState<number>(0);
+    const [conveyancingString, setConveyancingString] = useState<string>("");
     const [stampDuty, setStampDuty] = useState<number>(0);
     const [stampDutyString, setStampDutyString] = useState<string>("");
     const [commissionFlat, setCommissionFlat] = useState<number>(0);
@@ -14,34 +19,6 @@ const SellProperty: React.FC = () => {
     const [netProfit, setNetProfit] = useState<number>(0);
     const [grossProfit, setGrossProfit] = useState<number>(0);
     const [capGainsTax, setCapGainsTax] = useState<number>(0);
-    const changeSaleAmount = (value: number) => {
-        setSaleAmount(value);
-        console.log(value);
-    }
-    const changeOutstanding = (value: number) => {
-        setOutstanding(value);
-        console.log(value);
-    }
-    const changeStampDuty = (value: number) => {
-        setStampDuty(value);
-        console.log(value);
-    }
-    const changeCommissionFlat = (value: number) => {
-        setCommissionFlat(value);
-        console.log(value);
-    }
-    const changeNetProfit = (value: number) => {
-        setNetProfit(value);
-        console.log(value);
-    }
-    const changeGrossProfit = (value: number) => {
-        setGrossProfit(value);
-        console.log(value);
-    }
-    const changeCapGainsTax = (value: number) => {
-        setCapGainsTax(value);
-        console.log(value);
-    }
 
     return (
         <div>
@@ -54,7 +31,18 @@ const SellProperty: React.FC = () => {
                     </Typography>
                     <Stack direction={'row'}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
+                                <TextField
+                                    label="Taxable Income"
+                                    type="string"
+                                    value={incomeString}
+                                    onChange={(e) => {
+                                        handleNumericInput(e.target.value, setIncome, setIncomeString)
+                                    }}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
                                 <TextField
                                     label="Sale Amount"
                                     type="string"
@@ -65,18 +53,18 @@ const SellProperty: React.FC = () => {
                                     fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <TextField
-                                    label="Outstanding Loan"
+                                    label="Purchase Amount"
                                     type="string"
-                                    value={outstandingString}
+                                    value={purchaseAmountString}
                                     onChange={(e) => {
-                                        handleNumericInput(e.target.value, setOutstanding, setOutstandingString)
+                                        handleNumericInput(e.target.value, setPurchaseAmount, setPurchaseAmountString)
                                     }}
                                     fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <TextField
                                     label="Stamp Duty"
                                     type="string"
@@ -87,7 +75,18 @@ const SellProperty: React.FC = () => {
                                     fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
+                                <TextField
+                                    label="Conveyancing"
+                                    type="string"
+                                    value={conveyancingString}
+                                    onChange={(e) =>
+                                        handleNumericInput(e.target.value, setConveyancing, setConveyancingString)
+                                    }
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
                                 <TextField
                                     label="Commission (Flat)"
                                     type="string"
@@ -99,7 +98,18 @@ const SellProperty: React.FC = () => {
                                 />
                             </Grid>
                             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
-                                <Button variant="contained" color="primary" onClick={() => {/* Placeholder*/ }}>
+                                <Button variant="contained" color="primary" onClick={() => {
+                                    let capitalGains = calculateCapGainsTax(
+                                        income, 
+                                        purchaseAmount, 
+                                        saleAmount, 
+                                        0, //Placeholder, research tax writeoff expenses
+                                        true //Placeholder, add checkbox
+                                    );
+                                    setCapGainsTax(capitalGains);
+                                    setGrossProfit(saleAmount - purchaseAmount);
+                                    setNetProfit(saleAmount - purchaseAmount - capitalGains - stampDuty - conveyancing - commissionFlat);
+                                }}>
                                     Calculate
                                 </Button>
                             </Grid>
@@ -117,11 +127,7 @@ const SellProperty: React.FC = () => {
                         </Grid>
                         <Stack sx={{ px: 3 }} >
                             <Typography variant="body1" pb={2}>Capital gains: %50!?. Research</Typography>
-                            <Typography variant="body1" pb={2}>Stamp duty:</Typography>
                             <Typography variant="body1" pb={2}>Advertising</Typography>
-                            <Typography variant="body1" pb={2}>Agent commission %</Typography>
-                            <Typography variant="body1" pb={2}>Conveyancing: Buyer & Seller</Typography>
-                            <Typography variant="body1" pb={2}>Replace with graphic</Typography>
                         </Stack>
                     </Stack>
                 </Box>
