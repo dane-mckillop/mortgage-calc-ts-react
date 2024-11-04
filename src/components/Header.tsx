@@ -13,7 +13,7 @@ const Header = () => {
           style={{marginRight:'8px', cursor:'pointer'}}
           onClick={() => navigate('/')}
         >
-          Mortgage Calculator
+          Financial Tools
         </Typography>
         <AnimatedImage 
           gifPath='/images/home-animated.gif' 

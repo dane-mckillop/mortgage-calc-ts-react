@@ -2,8 +2,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import { Route, Routes } from "react-router-dom";
 import Header from './components/Header.tsx'
-import BuyCalculators from './pages/BuyCalculators.tsx';
-import SellProperty from './pages/SellProperty.tsx';
+import PropertyTools from './pages/PropertyTools.tsx';
+import SellProperty from './components/SellProperty/SellProperty.tsx';
 
 function App() {
 
@@ -26,11 +26,11 @@ function App() {
         {/* Buy & Landing page */}
         <Route
           path = {"/"}
-          element = { <BuyCalculators /> }
+          element = { <PropertyTools /> }
         />
         <Route
           path = {"/buy"}
-          element = { <BuyCalculators /> }
+          element = { <PropertyTools /> }
         />
         {/* Sell page */}
         <Route

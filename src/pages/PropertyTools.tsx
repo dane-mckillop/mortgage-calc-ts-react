@@ -1,7 +1,7 @@
 import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import BuyProperty from '../components/BuyProperty/BuyProperty';
-import TrancheCalculator from '../components/TrancheCalculator/TrancheCalculator';
+import SellProperty from '../components/SellProperty/SellProperty';
 
 const BuyCalculators: React.FC = () => {
     const [tab, setTab] = useState<number>(1);
@@ -12,13 +12,13 @@ const BuyCalculators: React.FC = () => {
     return (
         <div>
             <Tabs value={tab} onChange={changeTab} aria-label="tab example">
-                <Tab label="Normal Repayments" value={1} />
-                <Tab label="Variable Repayments" value={2} />
+                <Tab label="Mortgage Repayments" value={1} />
+                <Tab label="Sale Capital Gains" value={2} />
             </Tabs>
             {tab === 1 &&
                 <BuyProperty />}
             {tab === 2 && 
-                <TrancheCalculator />}
+                <SellProperty />}
         </div>
     );
 };
