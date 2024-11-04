@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { handleNumericInput } from '../helpers/validation';
 import { calculateCapGainsTax } from '../helpers/calculation';
@@ -16,9 +16,14 @@ const SellProperty: React.FC = () => {
     const [stampDutyString, setStampDutyString] = useState<string>("");
     const [commissionFlat, setCommissionFlat] = useState<number>(0);
     const [commissionFlatString, setCommissionFlatString] = useState<string>("");
+    const [advertising, setAdvertising] = useState<number>(0);
+    const [advertisingString, setAdvertisingString] = useState<string>("");
+    const [other, setOther] = useState<number>(0);
+    const [otherString, setOtherString] = useState<string>("");
     const [netProfit, setNetProfit] = useState<number>(0);
     const [grossProfit, setGrossProfit] = useState<number>(0);
     const [capGainsTax, setCapGainsTax] = useState<number>(0);
+    const [twelveMonthsHeld, setTwelveMonthsHeld] = useState<boolean>(true);
 
     return (
         <div>
@@ -30,7 +35,7 @@ const SellProperty: React.FC = () => {
                         Property Sale
                     </Typography>
                     <Stack direction={'row'}>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2} justifyContent={'center'}>
                             <Grid item xs={4}>
                                 <TextField
                                     label="Taxable Income"
@@ -97,21 +102,64 @@ const SellProperty: React.FC = () => {
                                     fullWidth
                                 />
                             </Grid>
+                            <Grid item xs={4}>
+                                <TextField
+                                    label="Advertising"
+                                    type="string"
+                                    value={advertisingString}
+                                    onChange={(e) =>
+                                        handleNumericInput(e.target.value, setAdvertising, setAdvertisingString)
+                                    }
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField
+                                    label="Other"
+                                    type="string"
+                                    value={otherString}
+                                    onChange={(e) =>
+                                        handleNumericInput(e.target.value, setOther, setOtherString)
+                                    }
+                                    fullWidth
+                                />
+                            </Grid>
                             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', m: '12px', width: '100%' }}>
                                 <Button variant="contained" color="primary" onClick={() => {
                                     let capitalGains = calculateCapGainsTax(
-                                        income, 
-                                        purchaseAmount, 
-                                        saleAmount, 
+                                        income,
+                                        purchaseAmount,
+                                        saleAmount,
                                         0, //Placeholder, research tax writeoff expenses
-                                        true //Placeholder, add checkbox
+                                        twelveMonthsHeld
                                     );
                                     setCapGainsTax(capitalGains);
                                     setGrossProfit(saleAmount - purchaseAmount);
-                                    setNetProfit(saleAmount - purchaseAmount - capitalGains - stampDuty - conveyancing - commissionFlat);
+                                    setNetProfit(
+                                        saleAmount -
+                                        purchaseAmount -
+                                        capitalGains -
+                                        stampDuty -
+                                        conveyancing -
+                                        commissionFlat -
+                                        advertising -
+                                        other
+                                    );
                                 }}>
                                     Calculate
                                 </Button>
+                                <FormControlLabel label="12 Months owned?" sx={{mx: 1}}
+                                    control={
+                                        <Checkbox
+                                            checked={twelveMonthsHeld}
+                                            sx={{pr:0.5}}
+                                            onChange={(e) => { 
+                                                setTwelveMonthsHeld(e.target.checked); 
+                                            }}
+                                            color="primary"
+                                        />
+                                    }
+                                />
                             </Grid>
                             <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
                                 <Typography variant="body1" style={{ marginRight: '5px' }}>
@@ -125,10 +173,6 @@ const SellProperty: React.FC = () => {
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Stack sx={{ px: 3 }} >
-                            <Typography variant="body1" pb={2}>Capital gains: %50!?. Research</Typography>
-                            <Typography variant="body1" pb={2}>Advertising</Typography>
-                        </Stack>
                     </Stack>
                 </Box>
             </Stack>
