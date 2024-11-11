@@ -2,6 +2,7 @@ import { Box, Button, Checkbox, FormControlLabel, Grid, Stack, TextField, Typogr
 import { useState } from 'react';
 import { handleNumericInput } from '../../helpers/validation';
 import { calculateCapGainsTax } from '../../helpers/calculation';
+import CostChart from './CostsChart';
 
 const SellProperty: React.FC = () => {
     const [income, setIncome] = useState<number>(0);
@@ -24,6 +25,7 @@ const SellProperty: React.FC = () => {
     const [grossProfit, setGrossProfit] = useState<number>(0);
     const [capGainsTax, setCapGainsTax] = useState<number>(0);
     const [twelveMonthsHeld, setTwelveMonthsHeld] = useState<boolean>(true);
+    const [calculated, setCalculated] = useState<boolean>(false);
 
     return (
         <div>
@@ -145,6 +147,7 @@ const SellProperty: React.FC = () => {
                                         advertising -
                                         other
                                     );
+                                    setCalculated(!calculated);
                                 }}>
                                     Calculate
                                 </Button>
@@ -172,6 +175,17 @@ const SellProperty: React.FC = () => {
                                     Capital Gains Tax: ${capGainsTax.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </Typography>
                             </Box>
+                            <CostChart
+                                conveyancing = {conveyancing}
+                                stampDuty = {stampDuty}
+                                commissionFlat = {commissionFlat}
+                                advertising = {advertising}
+                                other = {other}
+                                capGainsTax = {capGainsTax}
+                                netProfit = {netProfit}
+                                grossProfit = {grossProfit}
+                                calculated = {calculated}
+                            />
                         </Grid>
                     </Stack>
                 </Box>
