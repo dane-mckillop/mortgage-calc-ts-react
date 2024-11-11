@@ -166,12 +166,6 @@ const SellProperty: React.FC = () => {
                             </Grid>
                             <Box sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', p: 1, width: '90%' }}>
                                 <Typography variant="h6" color={'primary'} style={{ marginRight: '5px' }}>
-                                    Net Profit: ${netProfit.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                </Typography>
-                                <Typography variant="h6" style={{ marginRight: '5px' }}>
-                                    Gross Profit: ${grossProfit.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                </Typography>
-                                <Typography variant="h6" style={{ marginRight: '5px' }}>
                                     Capital Gains Tax: ${capGainsTax.toLocaleString('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </Typography>
                             </Box>
